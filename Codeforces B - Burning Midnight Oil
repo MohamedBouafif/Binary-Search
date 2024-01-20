@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+bool ok(int d, int k, int n);
+int BS_V (int n, int k);
+ 
+int main(void)
+{
+    int n,k;
+    cin>>n>>k;
+    if (n <= k)
+    {
+        cout<<n;
+    }
+    else
+    {
+        cout<< BS_V(n,k);
+    }
+}
+ 
+bool ok(int d, int k, int n)
+{
+    long long sum = d;
+    while (d /= k)
+    {
+        sum +=d;
+    }
+    if (sum >= n) return true;
+    else return false;
+}
+ 
+int BS_V (int n, int k)
+{
+    int st= 0, en = n-1;
+    int ans = -1;
+    while(st<=en)
+    {
+        int Mid = st + (en - st)/2;
+        if( ok (Mid, k, n))
+        {
+            en = Mid -1;
+            ans = Mid;
+        }
+        else
+        {
+            st = Mid +1;
+        }
+    }
+    return ans;
+}
