@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+long long sum(long long i , long long j) ;
+long long BS_sum (long long n , long long k);
+ 
+int main (void) //No commend arguments
+{
+    long long n;
+    long long k;
+    cin >> n >> k;
+    if (n == 1) cout << 0;
+    else if (n <= k) cout <<1;
+    else
+    {
+        n--;
+        k--;
+        if (sum(k,1) < n) cout<<-1;
+        else
+        {
+            cout<<BS_sum(n,k);
+        }
+    }
+ 
+    return 0;
+}
+ 
+long long sum(long long i , long long j) // i >= j
+{
+    return (j + i) * (i - j + 1) / 2;
+ 
+}
+ 
+long long BS_sum (long long n , long long k)
+{
+ 
+    long long ST = 1;
+    long long EN = k;
+    while (ST < EN)
+    {
+        long long Mid = ST + (EN - ST) / 2;
+        long long s = sum(k, Mid);
+ 
+        if (s == n)
+        {
+            return k - Mid + 1;
+        }
+        else  if (s > n)
+        {
+            ST = Mid +1;
+        }
+        else
+        {
+            EN = Mid;
+        }
+    }
+    return k - ST + 2;
+}
